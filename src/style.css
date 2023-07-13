@@ -18,21 +18,52 @@ body
     outline: none;
 }
 
+/* title */
 h1 {
-    color: white;
-    position: absolute;
-    top: 0;
-    left: 0;
+    --s: 0.1em;   /* the thickness of the line */
+    --c: #ff6030; /* the color */
+
     z-index: 1;
-    font-size: 30px;
-    margin: 20px;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: unset;
+    color: rgb(169, 174, 188);
+    padding-bottom: var(--s);
+    background: 
+      linear-gradient(90deg,var(--c) 50%,#000 0) calc(100% - var(--_p,0%))/200% 100%,
+      linear-gradient(var(--c) 0 0) 0% 100%/var(--_p,0%) var(--s) no-repeat;
+    -webkit-background-clip: text,padding-box;
+            background-clip: text,padding-box;
+    transition: 0.5s;
 }
 
-/* gui test */
+h1:hover {--_p: 100%}
+  
+body {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
 
+h1 {
+    font-family: system-ui, sans-serif;
+    font-size: 2rem;
+    cursor: pointer;
+    margin: 30px;
+}
 
+li {
+    z-index: 1;
+    color: white;
+    background-color: white;
+
+}
+
+.link {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* gui */
 .lil-gui {
     padding: 15px;
     --spacing: 0px;
@@ -40,10 +71,17 @@ h1 {
     border-radius: 20px;
 
 }
+
 .lil-gui.root .title {
     background-color: rgba(0, 0, 0, 0);
     font-size: 12px;
     font-weight: 100;
+    
+}
+
+.lil-gui.autoPlace {
+    top: 25px;
+    right: 25px;
 }
 
 .lil-gui .children .controller {
@@ -52,16 +90,14 @@ h1 {
 
 .lil-gui .children .controller.number.hasSlider,
 .lil-gui .children .controller.color {
-        font-size: 12px;
-        font-weight: 100;
-        letter-spacing: 0.08rem;
-        overflow: hidden;
-        height: 1.25em;
-        grid-auto-flow: column;
-        grid-template-columns: 78px auto 32px;
-        align-items: center;
-        --number-color: white;
-        
-
-    
+    font-family: system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 100;
+    letter-spacing: 0.08rem;
+    overflow: hidden;
+    height: 1.25em;
+    grid-auto-flow: column;
+    grid-template-columns: 78px auto 32px;
+    align-items: center;
+    --number-color: white;
 }

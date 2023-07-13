@@ -4,19 +4,22 @@ import * as dat from 'lil-gui';
 
 THREE.ColorManagement.enabled = false;
 
-/**
- * Base
- */
-// Debug
+// link drag fix
+var linkElement = document.getElementById("myLink");
+linkElement.addEventListener("dragstart", function(event) {
+  event.preventDefault();
+});
+
+// debug
 const gui = new dat.GUI();
 
-// Canvas
+// canvas
 const canvas = document.querySelector('canvas.webgl');
 
-// Scene
+// scene
 const scene = new THREE.Scene();
 
-// Galaxy
+// galaxy parameters
 const parameters = {};
 parameters.count = 100000;
 parameters.size = 0.01;
@@ -32,6 +35,7 @@ let geometry = null;
 let material = null;
 let points = null;
 
+// generate galaxy function
 const generateGalaxy = () => {
   if (points !== null) {
     scene.remove(points);
@@ -89,6 +93,7 @@ const generateGalaxy = () => {
 
 generateGalaxy();
 
+// gui parameters
 gui.add(parameters, 'count').min(100).max(1000000).step(100).onFinishChange(generateGalaxy);
 gui.add(parameters, 'size').min(0.001).max(0.1).step(0.001).onFinishChange(generateGalaxy);
 gui.add(parameters, 'radius').min(0.01).max(20).step(0.01).onFinishChange(generateGalaxy);
@@ -98,45 +103,37 @@ gui.add(parameters, 'randomness').min(0).max(2).step(0.001).onFinishChange(gener
 gui.addColor(parameters, 'insideColor').onFinishChange(generateGalaxy);
 gui.addColor(parameters, 'outsideColor').onFinishChange(generateGalaxy);
 
-/**
- * Sizes
- */
+// screen size
 const sizes = {
   width: window.innerWidth,
   height: window.innerHeight,
 };
 
+// window resize
 window.addEventListener('resize', () => {
-  // Update sizes
+
   sizes.width = window.innerWidth;
   sizes.height = window.innerHeight;
 
-  // Update camera
   camera.aspect = sizes.width / sizes.height;
   camera.updateProjectionMatrix();
 
-  // Update renderer
   renderer.setSize(sizes.width, sizes.height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 });
 
-/**
- * Camera
- */
-// Base camera
+// base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100);
 camera.position.x = 3;
 camera.position.y = 3;
 camera.position.z = 3;
 scene.add(camera);
 
-// Controls
+// controls
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
 
-/**
- * Renderer
- */
+// renderer
 const renderer = new THREE.WebGLRenderer({
   canvas: canvas,
 });
@@ -144,22 +141,17 @@ renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-/**
- * Animate
- */
+// animation
 const clock = new THREE.Clock();
 
+// frame by frame
 const tick = () => {
   const elapsedTime = clock.getElapsedTime();
 
-  // animate the particles
-  // Update controls
   controls.update();
 
-  // Render
   renderer.render(scene, camera);
 
-  // Call tick again on the next frame
   window.requestAnimationFrame(tick);
 };
 
