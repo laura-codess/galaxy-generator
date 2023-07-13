@@ -1,0 +1,67 @@
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body
+{
+    overflow: hidden;
+}
+
+.webgl
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    outline: none;
+}
+
+h1 {
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    font-size: 30px;
+    margin: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: unset;
+}
+
+/* gui test */
+
+
+.lil-gui {
+    padding: 15px;
+    --spacing: 0px;
+    --slider-knob-width: 4px;
+    border-radius: 20px;
+
+}
+.lil-gui.root .title {
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 12px;
+    font-weight: 100;
+}
+
+.lil-gui .children .controller {
+    margin-top: 15px;
+}
+
+.lil-gui .children .controller.number.hasSlider,
+.lil-gui .children .controller.color {
+        font-size: 12px;
+        font-weight: 100;
+        letter-spacing: 0.08rem;
+        overflow: hidden;
+        height: 1.25em;
+        grid-auto-flow: column;
+        grid-template-columns: 78px auto 32px;
+        align-items: center;
+        --number-color: white;
+        
+
+    
+}
